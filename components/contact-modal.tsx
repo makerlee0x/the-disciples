@@ -91,14 +91,14 @@ const normalizeSocialUrl = (id: string, value: string): string => {
   // Strip leading @ symbol
   if (v.startsWith("@")) v = v.slice(1);
 
-  // If it already looks like a full URL, just ensure https://
+  // Already a full URL — return as-is
   if (/^https?:\/\//i.test(v)) return v;
-  if (/^www\./i.test(v)) return `https://${v}`;
 
-  // If it contains a dot and looks like a domain (e.g. "jesuscoin.xyz"), treat as full URL
-  if (v.includes(".") && !v.includes("/")) return `https://${v}`;
+  // Has a domain-like structure (contains a dot) — just prepend https://
+  // This covers: www.x.com/user, tiktok.com/@user, jesuscoin.xyz, etc.
+  if (/^www\./i.test(v) || v.includes(".")) return `https://${v}`;
 
-  // Otherwise treat as a username/handle and build the platform URL
+  // Plain username / handle — build the platform URL
   const bases: Record<string, string> = {
     tiktok: "https://www.tiktok.com/@",
     instagram: "https://www.instagram.com/",
