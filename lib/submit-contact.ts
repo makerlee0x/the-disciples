@@ -63,12 +63,14 @@ ${data.message || "No message provided"}
     `;
 
     try {
-      await resend.emails.send({
-        from: "Disciple Contact Form <noreply@disciple.vip>",
+      const emailResult = await resend.emails.send({
+        from: "Disciple <onboarding@resend.dev>",
         to: "hello@disciple.vip",
+        replyTo: data.email,
         subject: `New Contact: ${data.name} (${data.role})`,
         text: emailContent,
       });
+      console.log("[v0] Email sent successfully:", emailResult);
     } catch (emailError) {
       console.error("[v0] Email send error:", emailError);
       // Data was saved to Supabase, but email failed. Still return success since the form submission worked.
