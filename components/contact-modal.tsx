@@ -222,20 +222,17 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     className="flex flex-col items-center gap-4 py-16 text-center"
                   >
                     <Image
-                      src="/logo-icon.png"
-                      alt="Disciple star"
-                      width={36}
-                      height={36}
-                      className="invert opacity-60"
+                      src="/logo-full.png"
+                      alt="Disciple"
+                      width={150}
+                      height={45}
+                      className="h-12 w-auto invert opacity-80"
                     />
                     <p
                       className="font-serif italic text-2xl text-white"
                       style={{ textShadow: "0 0 30px rgba(160,200,255,0.6)" }}
                     >
                       {"We'll be in touch."}
-                    </p>
-                    <p className="text-white/40 text-xs leading-relaxed max-w-[200px]">
-                      Thanks for reaching out. Expect something worth reading.
                     </p>
                   </motion.div>
                 ) : (
