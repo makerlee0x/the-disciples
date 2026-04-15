@@ -83,6 +83,42 @@ const ENQUIRY_OPTIONS = [
   "I'd like to apply for an internship with Disciple",
 ];
 
+// Normalizes any input into a full URL for a given platform
+const normalizeSocialUrl = (id: string, value: string): string => {
+  if (!value.trim()) return "";
+  let v = value.trim();
+
+  // Strip leading @ symbol
+  if (v.startsWith("@")) v = v.slice(1);
+
+  // If it already looks like a full URL, just ensure https://
+  if (/^https?:\/\//i.test(v)) return v;
+  if (/^www\./i.test(v)) return `https://${v}`;
+
+  // If it contains a dot and looks like a domain (e.g. "jesuscoin.xyz"), treat as full URL
+  if (v.includes(".") && !v.includes("/")) return `https://${v}`;
+
+  // Otherwise treat as a username/handle and build the platform URL
+  const bases: Record<string, string> = {
+    tiktok: "https://www.tiktok.com/@",
+    instagram: "https://www.instagram.com/",
+    youtube: "https://www.youtube.com/@",
+    facebook: "https://www.facebook.com/",
+    x: "https://x.com/",
+    other: "https://",
+  };
+
+  const base = bases[id] ?? "https://";
+  return `${base}${v}`;
+};
+
+const normalizeWebsiteUrl = (value: string): string => {
+  if (!value.trim()) return "";
+  const v = value.trim();
+  if (/^https?:\/\//i.test(v)) return v;
+  return `https://${v}`;
+};
+
 const fieldStyle: React.CSSProperties = {
   width: "100%",
   borderRadius: "999px",
@@ -347,10 +383,14 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                           </span>
                           <input
                             name={`social_${id}`}
-                            type="url"
+                            type="text"
                             placeholder={placeholder}
                             value={socialLinks[id] || ""}
                             onChange={(e) => handleSocialChange(id, e.target.value)}
+                            onBlur={(e) => {
+                              const normalized = normalizeSocialUrl(id, e.target.value);
+                              if (normalized) handleSocialChange(id, normalized);
+                            }}
                             style={{ ...fieldStyle, paddingLeft: "44px" }}
                             aria-label={label}
                           />
@@ -361,10 +401,14 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     {/* Website */}
                     <input
                       name="website"
-                      type="url"
+                      type="text"
                       placeholder="WEBSITE"
                       value={website}
                       onChange={(e) => setWebsite(e.target.value)}
+                      onBlur={(e) => {
+                        const normalized = normalizeWebsiteUrl(e.target.value);
+                        if (normalized) setWebsite(normalized);
+                      }}
                       style={fieldStyle}
                     />
 
