@@ -64,7 +64,7 @@ ${data.message || "No message provided"}
 
     try {
       const emailResult = await resend.emails.send({
-        from: "noreply@disciple.vip",
+        from: "noreply@noreply.disciple.vip",
         to: "hello@disciple.vip",
         replyTo: data.email,
         subject: `New Contact: ${data.name} (${data.role})`,
