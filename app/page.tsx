@@ -1,13 +1,15 @@
-import { HeroSection } from "@/components/hero-section"
+import { Background } from "@/components/background";
+import { Footer } from "@/components/footer";
+import { Newsletter } from "@/components/newsletter";
 
-export default function Page() {
+export default function Home() {
   return (
-    <main className="relative h-screen overflow-hidden">
-      <div className="grid-bg fixed inset-0 opacity-30" aria-hidden="true" />
-
-      <div className="relative z-10 h-full">
-        <HeroSection />
+    <main className="p-inset h-[100dvh] w-full">
+      <div className="relative h-full w-full">
+        <Background src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/alt-g7Cv2QzqL3k6ey3igjNYkM32d8Fld7.mp4" placeholder="/alt-placeholder.png" />
+        <Newsletter />
+        <Footer />
       </div>
     </main>
-  )
+  );
 }
