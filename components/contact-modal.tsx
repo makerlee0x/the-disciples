@@ -255,17 +255,17 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     initial={{ opacity: 0, scale: 0.96 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4 }}
-                    className="flex flex-col items-center gap-4 py-16 text-center"
+                    className="flex flex-col items-center gap-6 py-16 text-center"
                   >
                     <Image
                       src="/logo-full.png"
                       alt="Disciple"
-                      width={150}
-                      height={45}
-                      className="h-12 w-auto invert opacity-80"
+                      width={450}
+                      height={135}
+                      className="h-36 w-auto"
                     />
                     <p
-                      className="font-serif italic text-2xl text-white"
+                      className="font-serif italic text-3xl text-white"
                       style={{ textShadow: "0 0 30px rgba(160,200,255,0.6)" }}
                     >
                       {"We'll be in touch."}
