@@ -1,44 +1,40 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { IBM_Plex_Sans, IBM_Plex_Mono, Bebas_Neue } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
-import { SmoothScroll } from "@/components/smooth-scroll"
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google"
 import "./globals.css"
+import { cn } from "@/lib/utils"
+import { V0Provider } from "@/lib/context"
+import dynamic from "next/dynamic"
 
-const ibmPlexSans = IBM_Plex_Sans({
-  weight: ["400", "500", "600", "700"],
+const V0Setup = dynamic(() => import("@/components/v0-setup"))
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  variable: "--font-ibm-plex-sans",
 })
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ["400", "500"],
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
   subsets: ["latin"],
-  variable: "--font-ibm-plex-mono",
 })
-const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" })
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+})
+
+const isV0 = process.env["VERCEL_URL"]?.includes("vusercontent.net") ?? false
 
 export const metadata: Metadata = {
-  title: "$JESUS | Jesus Coin",
-  description:
-    "The mission of Jesus Coin is to influence culture and be a light in dark places. It is a decentralized, faith-based crypto that inspires people to Do Good and Give More.",
-  generator: "v0.app",
-  icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+  title: {
+    template: "%s | Disciple",
+    default: "Disciple — Creative Strategy",
   },
+  description:
+    "Strategic storytelling, influencer growth, and content that turns casual followers into loyal movements.",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -47,13 +43,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark bg-background">
-      <body
-        className={`${ibmPlexSans.variable} ${bebasNeue.variable} ${ibmPlexMono.variable} font-sans antialiased overflow-x-hidden`}
-      >
-        <div className="noise-overlay" aria-hidden="true" />
-        <SmoothScroll>{children}</SmoothScroll>
-        <Analytics />
+    <html lang="en" className="bg-background">
+      <body className={cn(geistSans.variable, geistMono.variable, instrumentSerif.variable, "font-sans")}>
+        <V0Provider isV0={isV0}>
+          {children}
+          {isV0 && <V0Setup />}
+        </V0Provider>
       </body>
     </html>
   )
