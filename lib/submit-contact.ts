@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "./supabase/server";
+import { Resend } from "resend";
 
 interface ContactFormData {
   role: "creator" | "brand";
@@ -37,29 +38,45 @@ export async function submitContact(data: ContactFormData) {
       return { success: false, error: "Failed to save contact information" };
     }
 
-    // Send email via Resend (or your email service)
-    // For now, we'll just log it - you can integrate with Resend, SendGrid, etc.
-    const emailContent = `
-New Contact Form Submission
+    // Send email via Resend
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-Role: ${data.role === "creator" ? "Creator" : "Brand"}
+    const socialLinksText = Object.entries(data.socialLinks)
+      .filter(([, url]) => url)
+      .map(([platform, url]) => `${platform}: ${url}`)
+      .join("\n");
+
+    const emailContent = `
+New Contact Form Submission from Disciple
+
+Type: ${data.role === "creator" ? "Creator" : "Brand"}
 Name: ${data.name}
 Email: ${data.email}
-Enquiry Type: ${data.enquiry}
+Enquiry: ${data.enquiry}
 Website: ${data.website || "Not provided"}
-Message: ${data.message || "Not provided"}
 
 Social Links:
-${
-  Object.entries(data.socialLinks)
-    .filter(([, url]) => url)
-    .map(([platform, url]) => `${platform}: ${url}`)
-    .join("\n") || "None provided"
-}
+${socialLinksText || "None provided"}
+
+Message:
+${data.message || "No message provided"}
     `;
 
-    // TODO: Integrate with email service (Resend, SendGrid, etc.)
-    console.log("[v0] Email to send:\n", emailContent);
+    try {
+      await resend.emails.send({
+        from: "Disciple Contact Form <noreply@disciple.vip>",
+        to: "hello@disciple.vip",
+        subject: `New Contact: ${data.name} (${data.role})`,
+        text: emailContent,
+      });
+    } catch (emailError) {
+      console.error("[v0] Email send error:", emailError);
+      // Data was saved to Supabase, but email failed. Still return success since the form submission worked.
+      return {
+        success: true,
+        message: "Thank you for reaching out! We'll be in touch soon.",
+      };
+    }
 
     return {
       success: true,
