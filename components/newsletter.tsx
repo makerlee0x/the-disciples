@@ -37,7 +37,7 @@ export const Newsletter = () => {
       </motion.header>
 
       {/* Center content — fills remaining height */}
-      <div className="flex flex-col items-center justify-center flex-1 px-6 gap-6 lg:gap-7 pb-36">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 gap-6 lg:gap-7 pb-16 sm:pb-28">
 
         {/* Headline + Subheadline */}
         <motion.div
@@ -137,6 +137,15 @@ export const Newsletter = () => {
             />
             {"Let's Chat"}
           </button>
+
+          {/* Email */}
+          <a
+            href="mailto:hello@disciple.vip"
+            className="text-center text-white/60 text-xs tracking-wide hover:text-white/90 transition-colors"
+            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.6)" }}
+          >
+            hello@disciple.vip
+          </a>
         </motion.div>
       </div>
 

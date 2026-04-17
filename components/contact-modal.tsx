@@ -240,7 +240,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)" }}
               />
 
-              <div className="relative p-5 flex flex-col gap-4">
+              <div className="relative p-4 flex flex-col gap-3">
                 {/* Close */}
                 <button
                   onClick={onClose}
@@ -272,7 +272,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     </p>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-2">
 
                     {/* Title */}
                     <div className="text-center pt-2 pb-1">
@@ -374,12 +374,14 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     {errors.enquiry && <span className="text-red-400 text-[10px] px-4">{errors.enquiry}</span>}
                     </div>
 
-                    {/* Social links — each platform gets its own pill field with icon */}
-                    <div className="flex flex-col gap-2">
+                    {/* Social links — 2-column grid, 3 rows */}
+                    <div className="grid grid-cols-2 gap-2">
                       {SOCIAL_PLATFORMS.map(({ id, label, placeholder, icon }) => (
                         <div key={id} className="relative flex items-center">
-                          <span className="absolute left-4 pointer-events-none flex items-center" style={{ top: "50%", transform: "translateY(-50%)" }}>
-                            {icon}
+                          <span className="absolute left-3 pointer-events-none flex items-center" style={{ top: "50%", transform: "translateY(-50%)" }}>
+                            <span className="w-4 h-4 flex items-center justify-center [&>svg]:w-4 [&>svg]:h-4">
+                              {icon}
+                            </span>
                           </span>
                           <input
                             name={`social_${id}`}
@@ -391,7 +393,13 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                               const normalized = normalizeSocialUrl(id, e.target.value);
                               if (normalized) handleSocialChange(id, normalized);
                             }}
-                            style={{ ...fieldStyle, paddingLeft: "44px" }}
+                            style={{
+                              ...fieldStyle,
+                              paddingLeft: "32px",
+                              paddingRight: "8px",
+                              fontSize: "11px",
+                              padding: "8px 8px 8px 32px",
+                            }}
                             aria-label={label}
                           />
                         </div>
