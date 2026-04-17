@@ -124,9 +124,9 @@ const fieldStyle: React.CSSProperties = {
   borderRadius: "999px",
   background: "rgba(255,255,255,0.1)",
   border: "1px solid rgba(255,255,255,0.25)",
-  padding: "10px 16px",
+  padding: "7px 14px",
   color: "white",
-  fontSize: "13px",
+  fontSize: "12px",
   fontWeight: 500,
   letterSpacing: "0.03em",
   outline: "none",
@@ -222,7 +222,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
             className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
           >
             <div
-              className="relative pointer-events-auto w-full max-w-sm max-h-[90dvh] overflow-y-auto rounded-2xl"
+              className="relative pointer-events-auto w-full max-w-sm rounded-2xl overflow-hidden"
               style={{
                 background: "rgba(255,255,255,0.1)",
                 backdropFilter: "blur(32px)",
@@ -237,7 +237,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)" }}
               />
 
-              <div className="relative p-4 flex flex-col gap-3">
+              <div className="relative p-3 flex flex-col gap-2">
                 {/* Close */}
                 <button
                   onClick={onClose}
@@ -272,9 +272,9 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                   <form onSubmit={handleSubmit} className="flex flex-col gap-2">
 
                     {/* Title */}
-                    <div className="text-center pt-2 pb-1">
+                    <div className="text-center pt-1">
                       <h2
-                        className="font-serif italic text-2xl text-white"
+                        className="font-serif italic text-xl text-white"
                         style={{ textShadow: "0 2px 16px rgba(0,0,0,0.5)" }}
                       >
                         Let&apos;s work together.
@@ -296,7 +296,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                           type="button"
                           onClick={() => setRole(option)}
                           className={cn(
-                            "flex-1 rounded-full py-2 text-xs font-bold uppercase tracking-widest transition-all duration-200 focus:outline-none",
+                            "flex-1 rounded-full py-1.5 text-xs font-bold uppercase tracking-widest transition-all duration-200 focus:outline-none",
                             role === option ? "text-black" : "text-white/35 hover:text-white/70"
                           )}
                           style={
@@ -392,10 +392,8 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                             }}
                             style={{
                               ...fieldStyle,
-                              paddingLeft: "32px",
-                              paddingRight: "8px",
-                              fontSize: "11px",
-                              padding: "8px 8px 8px 32px",
+                              fontSize: "10px",
+                              padding: "6px 6px 6px 28px",
                             }}
                             aria-label={label}
                           />
@@ -414,9 +412,9 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                         ...fieldStyle,
                         borderRadius: "16px",
                         resize: "none",
-                        lineHeight: "1.6",
-                        paddingTop: "12px",
-                        paddingBottom: "12px",
+                        lineHeight: "1.5",
+                        paddingTop: "8px",
+                        paddingBottom: "8px",
                       }}
                     />
 
@@ -424,7 +422,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="relative overflow-hidden w-full h-11 rounded-full font-semibold tracking-wide text-sm transition-all duration-300 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
+                      className="relative overflow-hidden w-full h-9 rounded-full font-semibold tracking-wide text-sm transition-all duration-300 focus:outline-none disabled:opacity-60 disabled:cursor-not-allowed"
                       style={{
                         background: "linear-gradient(160deg, rgba(255,255,255,1) 0%, rgba(195,195,195,0.95) 100%)",
                         color: "#111",
