@@ -393,7 +393,7 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                             style={{
                               ...fieldStyle,
                               fontSize: "10px",
-                              padding: "6px 6px 6px 28px",
+                              padding: "6px 6px 6px 36px",
                             }}
                             aria-label={label}
                           />
