@@ -143,7 +143,6 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
   const [enquiry, setEnquiry] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [website, setWebsite] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -156,7 +155,6 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
       setEnquiry("");
       setName("");
       setEmail("");
-      setWebsite("");
       setMessage("");
       setErrors({});
       setIsSubmitting(false);
@@ -186,7 +184,6 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
       email,
       enquiry,
       socialLinks,
-      website: website || undefined,
       message: message || undefined,
     });
 
@@ -406,24 +403,10 @@ export const ContactModal = ({ open, onClose, initialRole }: ContactModalProps) 
                       ))}
                     </div>
 
-                    {/* Website */}
-                    <input
-                      name="website"
-                      type="text"
-                      placeholder="WEBSITE"
-                      value={website}
-                      onChange={(e) => setWebsite(e.target.value)}
-                      onBlur={(e) => {
-                        const normalized = normalizeWebsiteUrl(e.target.value);
-                        if (normalized) setWebsite(normalized);
-                      }}
-                      style={fieldStyle}
-                    />
-
                     {/* Message */}
                     <textarea
                       name="message"
-                      rows={4}
+                      rows={2}
                       placeholder="MESSAGE"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
