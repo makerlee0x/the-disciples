@@ -37,7 +37,7 @@ export const Newsletter = () => {
       </motion.header>
 
       {/* Center content — fills remaining height */}
-      <div className="flex flex-col items-center justify-center flex-1 px-6 gap-6 lg:gap-7 pb-36">
+      <div className="flex flex-col items-center justify-center flex-1 px-6 gap-6 lg:gap-7 pb-16 sm:pb-28">
 
         {/* Headline + Subheadline */}
         <motion.div
